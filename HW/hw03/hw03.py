@@ -24,7 +24,12 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    elif n % 10 == 8:
+        return 1 + num_eights(n // 10)
+    else:
+        return num_eights(n // 10)
 
 
 def digit_distance(n):
@@ -46,7 +51,10 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    else:
+        return abs(n % 10 - (n // 10) % 10) + digit_distance(n // 10)
 
 
 def interleaved_sum(n, odd_func, even_func):
@@ -70,7 +78,18 @@ def interleaved_sum(n, odd_func, even_func):
     >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
     True
     """
-    "*** YOUR CODE HERE ***"
+    def helper1(k):
+        if k == n:
+            return odd_func(k)
+        else:  #
+            return odd_func(k) + helper2(k + 1)
+    def helper2(k):
+        if k == n:
+            return even_func(k)
+        else:  #
+            return even_func(k) + helper1(k + 1)
+
+    return helper1(1)
 
 
 def next_smaller_dollar(bill):
@@ -106,7 +125,15 @@ def count_dollars(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    def count_helper(remaining, bill):
+        if remaining == 0:
+            return 1
+        elif remaining < 0 or bill == None:
+            return 0
+        else:
+            return count_helper(remaining - bill, bill) + count_helper(remaining, next_smaller_dollar(bill))
+
+    return count_helper(total, 100)
 
 
 def next_larger_dollar(bill):
@@ -142,7 +169,8 @@ def count_dollars_upward(total):
     >>> check(HW_SOURCE_FILE, 'count_dollars_upward', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    
 
 
 def print_move(origin, destination):
